@@ -1,0 +1,29 @@
+{
+  "name": "asix-final-project-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ASIX-ALS/asix-final-project-backend.git"
+  },
+  "author": "Adrian Valenzuela, Leandro Gartner, Sergio Bonet",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/ASIX-ALS/asix-final-project-backend/issues"
+  },
+  "homepage": "https://github.com/ASIX-ALS/asix-final-project-backend#readme",
+  "devDependencies": {
+    "express": "^4.15.3"
+  },
+  "dependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1"
+  }
+}
