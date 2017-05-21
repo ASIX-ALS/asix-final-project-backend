@@ -20,14 +20,15 @@ app.use(allowCrossDomain);
 
 // APIs
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://mongo/books');
+mongoose.connect('mongodb://mongo/petsDB');
 
 var Books = require('./models/books.js');
+var Users = require('./models/users.js');
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, '# MongoDB - connection error: '));
 
-//---------->>> SET UP SESSIONS <<<------------
+//---------->>> SET UP SESSIONS <<<------------ (EJEMPLO SESIONES)
 app.use(session({
   secret: 'mySecretString',
   saveUninitialized: false,
@@ -55,7 +56,7 @@ app.get('/api/get/cart', function(req, res){
 
 ////---------->>> END SESSIONS SET UP <<<------------
 
-//---------->>> POST BOOKS <<<------------
+//---------->>> POST BOOKS <<<------------ (EJEMPLO)
 
 app.post('/api/post/books', function(req, res){
   var book = req.body;
@@ -68,7 +69,7 @@ app.post('/api/post/books', function(req, res){
   })
 });
 
-//---------->>> GET BOOKS <<<------------
+//---------->>> GET BOOKS <<<------------ (EJEMPLO)
 
   app.get('/api/get/books', function(req, res){
   Books.find(function(err, books){
@@ -79,7 +80,7 @@ app.post('/api/post/books', function(req, res){
   })
 });
 
-//---------->>> DELETE BOOKS <<<------------
+//---------->>> DELETE BOOKS <<<------------ (EJEMPLO)
 
   app.delete('/api/delete/books/:_id', function(req, res){
     var query = {_id: req.params._id}
@@ -91,7 +92,7 @@ app.post('/api/post/books', function(req, res){
   })
 });
 
-//---------->>> GET BOOKS IMAGES API <<<------------
+//---------->>> GET BOOKS IMAGES API <<<------------ (EJEMPLO)
 app.get('/api/get/images', function(req, res){
   const imgFolder = __dirname + '/public/images/';
   const fs = require('fs');
@@ -109,6 +110,41 @@ app.get('/api/get/images', function(req, res){
     res.json(filesArr);
   })
 })
+
+//---------->>> REGISTER USERS <<<------------
+
+app.post('/api/register/user', function(req, res, next){
+  var user = req.body;
+
+  Users.create(user, function(err, newUser){
+    if(err){
+      console.log('# API ERROR: ' + next(err));
+    }
+    req.session.user = user.username;
+    return res.send('Logged In!'+newUser);
+  })
+});
+
+//---------->>> LOGIN USERS <<<------------
+
+app.get('/api/login/user', function (req, res, next) {
+   var username = req.params.username;
+   var password = req.params.password;
+
+   Users.findOne({'username': username, 'password': password}, function(err, user) {
+      if(err) return next(err);
+      if(!user) return res.send('Not logged in!');
+
+      req.session.user = username;
+      return res.send('Logged In!');
+   });
+});
+
+//---------->>> LOG OUT USERS <<<------------
+app.get('/api/logout/user', function (req, res) {
+   req.session.user = null;
+});
+
 // END Apis
 
 app.listen(3000, function(err){

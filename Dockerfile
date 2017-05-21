@@ -1,4 +1,5 @@
 FROM node:boron
+MAINTAINER gartnerleandro@gmail.com
 
 # Create app directory
 RUN mkdir -p /usr/src/app

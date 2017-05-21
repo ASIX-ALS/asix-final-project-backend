@@ -15,6 +15,6 @@ services:
     volumes_from:
       - mongodata
   mongodata:
-    image: tianon/true
+    image: ehazlett/mongodb
     volumes:
-      - /data/db
+      - ./data/mongodb:/data/db
