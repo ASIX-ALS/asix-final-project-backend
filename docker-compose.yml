@@ -1,13 +1,20 @@
-version: '2'
+version: "2"
 services:
-  node-server:
+  api-server:
     build: .
+    volumes:
+      - .:/usr/src/app
     ports:
       - "3000:3000"
-    networks:
-      - default
+    links:
+      - mongo
+  mongo:
+    image: mongo
+    ports:
+        - "27017:27017"
+    volumes_from:
+      - mongodata
+  mongodata:
+    image: tianon/true
     volumes:
-      - .:/usr/src/app/:rw
-      - vendor:/usr/src/app/node_modules
-volumes:
-  vendor:
+      - /data/db
