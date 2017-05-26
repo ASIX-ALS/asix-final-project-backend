@@ -1,6 +1,7 @@
 IMAGE = asix-final-project-node-backend
 DOCKER = docker-compose
 MACHINE = node-server
+BACKMACHINE = eu.gcr.io/noted-feat-168716/asixfinalprojectbackend-api-server
 
 
 help:
@@ -26,6 +27,12 @@ stop:
 	@echo "Stopping backend! 🍺";
 	@$(DOCKER) down;
 	@echo "Done! ✅";
+
+deploy-production:
+	@echo "Deploying backend... (production)";
+	@docker build -t $(BACKMACHINE):v2 --build-arg ENV=production .
+	@gcloud docker -- push $(BACKMACHINE):v2;
+	@echo "Done!";
 
 coffee:
 	@echo "                  (   (   (   ("
