@@ -120,8 +120,7 @@ app.post('/api/register/user', function(req, res, next){
     if(err){
       console.log('# API ERROR: ' + next(err));
     }
-    req.session.user = user.username;
-    return res.send('Logged In!'+newUser);
+    return res.send();
   })
 });
 
