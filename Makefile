@@ -1,7 +1,8 @@
 IMAGE = asix-final-project-node-backend
 DOCKER = docker-compose
-MACHINE = node-server
-BACKMACHINE = eu.gcr.io/noted-feat-168716/asixfinalprojectbackend-api-server
+MACHINE = alsback
+# BACKMACHINE = eu.gcr.io/noted-feat-168716/asixfinalprojectbackend-api-server
+BACKMACHINE = 727924676995.dkr.ecr.eu-west-2.amazonaws.com
 
 
 help:
@@ -28,10 +29,16 @@ stop:
 	@$(DOCKER) down;
 	@echo "Done! ✅";
 
+awslogin:
+	@echo "Loggin in aws...";
+	@`aws ecr get-login --region eu-west-2`;
+	@echo "Done!";
+
 deploy-production:
-	@echo "Deploying backend... (production)";
-	@docker build -t $(BACKMACHINE):v2 --build-arg ENV=production .
-	@gcloud docker -- push $(BACKMACHINE):v2;
+	@echo "Deploying frontend... (production)";
+	@docker build -t $(MACHINE):latest .
+	@docker tag $(MACHINE):latest $(BACKMACHINE)/$(MACHINE):latest;
+	@docker push $(BACKMACHINE)/$(MACHINE):latest;
 	@echo "Done!";
 
 coffee:
