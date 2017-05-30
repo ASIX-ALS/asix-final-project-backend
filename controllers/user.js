@@ -7,12 +7,14 @@ exports.find = function(req, res) {
   var password = req.body.password;
 
 User.findOne({username: username, password: password}, function(err, user) {
-  if(err) return res.send(500, err.message);
+    if(err) return res.send(500, err.message);
 
-  if(!user) return res.send(404, 'credenciales incorrectas');
+    if(!user) return res.send(404, 'credenciales incorrectas');
 
-  console.log('GET /user')
-  return res.status(200).send('login correcto!');
+    console.log('POST /user')
+    var id = user._id;
+
+    res.status(200).send(id);
   });
 };
 
@@ -21,7 +23,7 @@ exports.findById = function(req, res) {
  User.findById(req.params.id, function(err, user) {
    if(err) return res.send(500, err.message);
    console.log('GET /users/' + req.params.id);
-   res.status(200).send({user});
+   res.status(200).send(user.username);
  });
 };
 
