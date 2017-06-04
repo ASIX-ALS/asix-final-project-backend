@@ -36,7 +36,7 @@ app.use(router);
 var api = express.Router();
 
 api.route('/login/user')
-  .post(UserCtrl.find)
+  .post(UserCtrl.find);
 
 api.route('/register/user')
   .post(UserCtrl.add);
@@ -46,6 +46,7 @@ api.route('/user/:id')
   .put(UserCtrl.update)
   .delete(UserCtrl.delete);
 
+
 api.route('/new-publication')
   .post(PublicationCtrl.add);
 
@@ -54,6 +55,9 @@ api.route('/publications')
 
 api.route('/update-publication/:title')
   .post(PublicationCtrl.update);
+
+api.route('/upload/image')
+  .post(UserCtrl.image);
 
 app.use('/api', api);
 
