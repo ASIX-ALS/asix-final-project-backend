@@ -7,7 +7,7 @@ var ImageUploader = require('../utils/imageUploader');
 
 //GET - get all posts
 exports.find = function(req, res) {
-Publication.find().populate('userid').exec((err, publications)=> {
+Publication.find().populate('user', ['username']).exec((err, publications)=> {
     if(err) return res.send(500, err.message);
     if(!publications) return res.send(404, 'no se han encontrado publicaciones');
     res.status(200).send({publications});
@@ -19,8 +19,10 @@ exports.add = function(req, res) {
     publication = new Publication({
     title: req.body.title,
     description: req.body.description,
+
     image: req.body.image || 'http://ibicasa.com/fotos/NoDisponible.png',
-    userid: req.body.userid
+    user: req.body.user
+
   });
 
   publication.save(function(err, user) {
