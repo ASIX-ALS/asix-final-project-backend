@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var path = require('path');
 var Publication = mongoose.model('Publication');
 var User = mongoose.model('User');
+var ImageUploader = require('../utils/imageUploader');
 
 
 //GET - get all posts
@@ -18,7 +19,7 @@ exports.add = function(req, res) {
     publication = new Publication({
     title: req.body.title,
     description: req.body.description,
-    image: 'http://ibicasa.com/fotos/NoDisponible.png',
+    image: req.body.image || 'http://ibicasa.com/fotos/NoDisponible.png',
     userid: req.body.userid
   });
 
@@ -46,4 +47,27 @@ exports.delete = function(req, res) {
      res.json({ message: 'Successfully deleted' });
    });
  });
+};
+
+exports.image = function (req, res) {
+
+  var image = ImageUploader({
+    data_uri: req.body.data_uri,
+    filename: req.body.filename,
+    filetype: req.body.filetype
+  }).then(onGoodImageProcess, onBadImageProcess);
+
+  function onGoodImageProcess(resp) {
+    res.send({
+      status: 'success',
+      uri: resp
+    });
+  }
+
+  function onBadImageProcess(resp) {
+    res.send({
+     status: 'error',
+     error: resp,
+    });
+  }
 };
