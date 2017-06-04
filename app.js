@@ -57,7 +57,7 @@ api.route('/update-publication/:title')
   .post(PublicationCtrl.update);
 
 api.route('/upload/image')
-  .post(UserCtrl.image);
+  .post(PublicationCtrl.image);
 
 app.use('/api', api);
 
