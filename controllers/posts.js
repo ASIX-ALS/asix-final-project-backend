@@ -1,9 +1,12 @@
 var mongoose = require('mongoose');
+var path = require('path');
 var Publication = mongoose.model('Publication');
+var User = mongoose.model('User');
+
 
 //GET - get all posts
 exports.find = function(req, res) {
-Publication.find(function(err, publications) {
+Publication.find().populate('userid').exec((err, publications)=> {
     if(err) return res.send(500, err.message);
     if(!publications) return res.send(404, 'no se han encontrado publicaciones');
     res.status(200).send({publications});
