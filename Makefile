@@ -40,16 +40,3 @@ deploy-production:
 	@docker tag $(MACHINE):latest $(BACKMACHINE)/$(MACHINE):latest;
 	@docker push $(BACKMACHINE)/$(MACHINE):latest;
 	@echo "Done!";
-
-coffee:
-	@echo "                  (   (   (   ("
-	@echo "                   )   )   )   )"
-	@echo "                 _(___(___(___(__"
-	@echo "                |                |"
-	@echo "                |                |____"
-	@echo "                |                 __  |"
-	@echo "                |                |  | |"
-	@echo "                |                |  | |"
-	@echo "                |                |__| |"
-	@echo "                |                _____|"
-	@echo "                 \______________/"

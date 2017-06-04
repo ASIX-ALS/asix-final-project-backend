@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var ImageUploader = require('../utils/imageUploader');
 
 //GET - Return all registers
 exports.find = function(req, res) {
@@ -13,8 +14,9 @@ User.findOne({username: username, password: password}, function(err, user) {
 
     console.log('POST /user')
     var id = user._id;
+    var user = user.username;
 
-    res.status(200).send(id);
+    res.status(200).send({ id, username });
   });
 };
 
@@ -62,4 +64,28 @@ exports.delete = function(req, res) {
      res.json({ message: 'Successfully deleted' });
    });
  });
+};
+
+exports.image = function (req, res) {
+
+  var image = ImageUploader({
+    data_uri: req.body.data_uri,
+    filename: req.body.filename,
+    filetype: req.body.filetype
+  }).then(onGoodImageProcess, onBadImageProcess);
+
+  function onGoodImageProcess(resp) {
+    res.send({
+      status: 'success',
+      uri: resp
+    });
+  }
+
+  function onBadImageProcess(resp) {
+    res.send({
+     status: 'error',
+     error: resp,
+    });
+  }
+
 };
