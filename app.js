@@ -23,8 +23,10 @@ app.use(methodOverride());
 app.use(allowCrossDomain);
 
 // Import Models and Controllers
-var models = require('./models/User')(app, mongoose);
+var UserModels = require('./models/User')(app, mongoose);
+var PublicationModels = require('./models/Posts')(app, mongoose);
 var UserCtrl = require('./controllers/user');
+var PublicationCtrl = require('./controllers/posts');
 
 var router = express.Router();
 
@@ -43,6 +45,15 @@ api.route('/user/:id')
   .get(UserCtrl.findById)
   .put(UserCtrl.update)
   .delete(UserCtrl.delete);
+
+api.route('/new-publication')
+  .post(PublicationCtrl.add);
+
+api.route('/publications')
+  .get(PublicationCtrl.find);
+
+api.route('/update-publication/:title')
+  .post(PublicationCtrl.update);
 
 app.use('/api', api);
 
