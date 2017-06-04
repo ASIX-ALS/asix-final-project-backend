@@ -18,7 +18,7 @@ exports.add = function(req, res) {
     publication = new Publication({
     title: req.body.title,
     description: req.body.description,
-    image: 'null',
+    image: 'http://ibicasa.com/fotos/NoDisponible.png',
     userid: req.body.userid
   });
 
