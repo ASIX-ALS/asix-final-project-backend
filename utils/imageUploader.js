@@ -21,12 +21,12 @@ var ImageUploader = function(options){
 
 
   // put to a path in our bucket, and make readable by the public
-  var params = {Bucket: bucketName, Key: keyName, Body: buf, ACL: 'public-read'};
+  var params = {Bucket: bucketName, Key: keyName, Body: buf, ContentType: 'image/jpeg', ACL: 'public-read'};
   s3.putObject(params, function(err, data) {
     if (err) {
       deferred.reject({error: 'error'});
     } else {
-      deferred.resolve(`alsbuckets3.s3.amazonaws.com/${keyName}`);
+      deferred.resolve(`https://alsbuckets3.s3.amazonaws.com/${keyName}`);
     }
   });
 

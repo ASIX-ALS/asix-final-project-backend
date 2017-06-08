@@ -4,6 +4,24 @@ var Publication = mongoose.model('Publication');
 var User = mongoose.model('User');
 var ImageUploader = require('../utils/imageUploader');
 
+var f=new Date();
+hora=f.getHours()+":"+f.getMinutes()+":"+f.getSeconds();
+
+var hoy = new Date();
+var dd = hoy.getDate();
+var mm = hoy.getMonth()+1; //hoy es 0!
+var yyyy = hoy.getFullYear();
+
+if(dd<10) {
+    dd='0'+dd
+}
+
+if(mm<10) {
+    mm='0'+mm
+}
+
+hoy = mm+'/'+dd+'/'+yyyy;
+
 
 //GET - get all posts
 exports.find = function(req, res) {
@@ -19,9 +37,10 @@ exports.add = function(req, res) {
     publication = new Publication({
     title: req.body.title,
     description: req.body.description,
-
-    image: req.body.image || 'http://ibicasa.com/fotos/NoDisponible.png',
-    user: req.body.user
+    image: req.body.image || 'http://www.dermagroup.com.uy/components/com_virtuemart/assets/images/vmgeneral/no-image.jpg',
+    user: req.body.user,
+    creationDate: hoy,
+    creationTime: hora,
 
   });
 
