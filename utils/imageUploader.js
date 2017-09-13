@@ -8,15 +8,15 @@ var ImageUploader = function(options){
 
   // Create an S3 client
   AWS.config.update({
-    accessKeyId: "AKIAIMNFFHC6CW4OXDOQ",
-    secretAccessKey: "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",
+    accessKeyId: "AKIAJDDT4NPGHM6X6C2A",
+    secretAccessKey: "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",
     region: "eu-west-2",
   });
 
   var s3 = new AWS.S3();
 
   // Create a bucket and upload something into it
-  var bucketName = 'alsbuckets3';
+  var bucketName = 'asixfinalbucket';
   var keyName = options.filename;
 
 
@@ -26,7 +26,7 @@ var ImageUploader = function(options){
     if (err) {
       deferred.reject({error: 'error'});
     } else {
-      deferred.resolve(`https://alsbuckets3.s3.amazonaws.com/${keyName}`);
+      deferred.resolve(`https://asixfinalbucket.s3.amazonaws.com/${keyName}`);
     }
   });
 
