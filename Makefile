@@ -35,7 +35,7 @@ awslogin:
 	@echo "Done!";
 
 deploy-production:
-	@echo "Deploying frontend... (production)";
+	@echo "Deploying backend... (production)";
 	@docker build -t $(MACHINE):latest .
 	@docker tag $(MACHINE):latest $(BACKMACHINE)/$(MACHINE):latest;
 	@docker push $(BACKMACHINE)/$(MACHINE):latest;
