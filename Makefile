@@ -1,6 +1,6 @@
-IMAGE = asix-final-project-node-backend
+IMAGE = asix-final-backend
 DOCKER = docker-compose
-MACHINE = alsback
+MACHINE = asix-final-backend
 # BACKMACHINE = eu.gcr.io/noted-feat-168716/asixfinalprojectbackend-api-server
 BACKMACHINE = 727924676995.dkr.ecr.eu-west-2.amazonaws.com
 
@@ -31,7 +31,7 @@ stop:
 
 awslogin:
 	@echo "Loggin in aws...";
-	@`aws ecr get-login --region eu-west-2`;
+	@`aws ecr get-login --no-include-email --region eu-west-2`;
 	@echo "Done!";
 
 deploy-production:
